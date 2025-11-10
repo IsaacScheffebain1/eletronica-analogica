@@ -1,0 +1,112 @@
+const int R1 = 10;
+const int Y1 = 11;
+const int G1 = 12;
+
+const int r1 = 7;
+const int g1 = 8;
+
+const int R2 = 4;
+const int Y2 = 5;
+const int G2 = 6;
+
+const int r2 = 2;
+const int g2 = 3;
+
+const int button = 9;
+
+unsigned long time;
+
+void setup() {
+  pinMode(R1, OUTPUT);
+  pinMode(Y1, OUTPUT);
+  pinMode(G1, OUTPUT);
+
+  pinMode(r1, OUTPUT);
+  pinMode(g1, OUTPUT);
+
+  pinMode(R2, OUTPUT);
+  pinMode(Y2, OUTPUT);
+  pinMode(G2, OUTPUT);
+
+  pinMode(r2, OUTPUT);
+  pinMode(g2, OUTPUT);
+
+  pinMode(button, INPUT);
+}
+
+void loop() {
+  initializate();
+  time = millis();
+  while (time + 10000 > millis()) {
+    if (digitalRead(button)) {
+      alternate();
+      return;
+    }
+  }
+  alternate();
+}
+
+void initializate() {
+  digitalWrite(R1, LOW);
+  digitalWrite(Y1, LOW);
+  digitalWrite(G1, HIGH);
+
+  digitalWrite(r1, HIGH);
+  digitalWrite(g1, LOW);
+
+  digitalWrite(R2, HIGH);
+  digitalWrite(Y2, LOW);
+  digitalWrite(G2, LOW);
+
+  digitalWrite(r2, LOW);
+  digitalWrite(g2, HIGH);
+}
+
+void alternate() {
+  //2
+  digitalWrite(Y1, HIGH);
+  digitalWrite(G1, LOW);
+
+  digitalWrite(g2, LOW);
+  for(int i = 0; i < 5; i++) {
+    digitalWrite(r2, HIGH); delay(200);
+    digitalWrite(r2, LOW); delay(100);
+  }
+  digitalWrite(r2, HIGH);
+
+  delay(2000);
+
+  //3
+  digitalWrite(R1, HIGH);
+  digitalWrite(Y1, LOW);
+
+  delay(2000);
+
+  //4
+  digitalWrite(r1, LOW);
+  digitalWrite(g1, HIGH);
+
+  digitalWrite(R2, LOW);
+  digitalWrite(G2, HIGH);
+
+  delay(10000);
+
+  //5
+  digitalWrite(Y2, HIGH);
+  digitalWrite(G2, LOW);
+
+  digitalWrite(g1, LOW);
+  for(int i = 0; i < 5; i++) {
+    digitalWrite(r1, HIGH); delay(200);
+    digitalWrite(r1, LOW); delay(100);
+  }
+  digitalWrite(r1, HIGH);
+
+  delay(2000);
+
+  //6
+  digitalWrite(R2, HIGH);
+  digitalWrite(Y2, LOW);
+
+  delay(2000);
+}
